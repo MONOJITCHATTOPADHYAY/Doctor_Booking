@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctor Booking - West Bengal</title>
+  <link rel="stylesheet" href="doctor.css" />
+</head>
+<body>
+<header>
+    <div class="header-content">
+      <h1 style="margin:0;">Doctor Booking — West Bengal</h1>
+      
+      <div id="user-section" class="user-profile-box" style="display:none;">
+        <div class="user-icon" id="user-initial">U</div>
+        <div style="font-size:14px; margin-right:8px;">
+          Hi, <span id="user-name-display">User</span>
+        </div>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+      </div>
+
+      <div id="login-btn-section">
+        <button class="logout-btn" onclick="window.location.href='login.html'">Login / Signup</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page 0: District Selection -->
+  <section id="page-0" class="page active">
+    <h2>Select Your District</h2>
+    <input id="district-search" placeholder="Type to search districts..." />
+    <div class="district-list" id="district-list"></div>
+    <div class="controls-row">
+      <button class="btn" onclick="confirmDistrict()">Confirm District</button>
+    </div>
+  </section>
+
+  <!-- Page 1: Choose Specialty -->
+  <section id="page-1" class="page">
+    <div class="top-row">
+      <h2>Select a Specialty</h2>
+      <button class="back-btn" onclick="showPage(0)">← Back</button>
+    </div>
+    <input id="search-doctor" placeholder="Search specialties..." oninput="searchSpecialties()" />
+    <div class="specialty-grid" id="specialty-grid"></div>
+  </section>
+  
+  <!-- Page 2: Doctors List -->
+<section id="page-2" class="page">
+  <div class="top-row">
+    <h2 id="page2-title">Doctors</h2>
+    <div>
+      <button class="back-btn" onclick="showPage(1)">← Back</button>
+    </div>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters">
+    <div class="filter-item">
+      <label for="date-filter">Select Date</label>
+      <input type="date" id="date-filter" onchange="renderDoctors()" />
+    </div>
+
+    <div class="filter-item">
+      <label for="location-filter">Filter by Location</label>
+      <input id="location-filter" placeholder="Type location" oninput="onLocationFilterInput()" />
+      <div id="location-suggestions" class="suggestions"></div>
+    </div>
+
+    <div class="filter-item">
+      <label for="fee-filter">Fee Range</label>
+      <select id="fee-filter" onchange="renderDoctors()">
+        <option value="">All</option>
+        <option value="under800">Under ₹800</option>
+        <option value="800to1500">₹800 - ₹1500</option>
+        <option value="above1500">Above ₹1500</option>
+      </select>
+    </div>
+
+    <div class="filter-item">
+      <label for="exp-filter">Minimum Experience (Years)</label>
+      <select id="exp-filter" onchange="renderDoctors()">
+        <option value="0">All</option>
+        <option value="2">2+</option>
+        <option value="5">5+</option>
+        <option value="10">10+</option>
+      </select>
+    </div>
+
+    <div class="filter-item">
+      <label for="rating-filter">Minimum Rating</label>
+      <select id="rating-filter" onchange="renderDoctors()">
+        <option value="0">All</option>
+        <option value="3">3⭐+</option>
+        <option value="4">4⭐+</option>
+        <option value="4.5">4.5⭐+</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="availability-summary" id="availability-summary"></div>
+
+  <h3>Available Doctors</h3>
+  <div class="doctor-list" id="available-list"></div>
+
+  <h3>Not Available on Selected Date</h3>
+  <div class="doctor-list not-available" id="not-available-list"></div>
+</section>
+
+  <!-- Page 3: Booking & Payment -->
+  <section id="page-3" class="page">
+    <h2>Book & Pay</h2>
+    <div class="payment-form">
+      <div id="selected-doctor-info"></div>
+
+      <label for="patient-name">Your Name:</label>
+      <input id="patient-name" placeholder="Full name" />
+
+      <label for="patient-contact">Contact Number:</label>
+      <input id="patient-contact" placeholder="Mobile number" />
+
+      <label for="slot-select">Select Time Slot:</label>
+      <select id="slot-select"></select>
+
+      <label for="advance">Advance Payment (₹)</label>
+      <input type="number" id="advance" value="100" min="0" />
+
+      <div class="controls-row">
+        <button class="btn" onclick="confirmBooking()">Confirm Booking</button>
+        <button class="back-btn" onclick="showPage(2)">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 4: Confirmation -->
+  <section id="page-4" class="page">
+    <h2>Booking Confirmed!</h2>
+    <div id="confirmation-info" class="confirmation-box"></div>
+    <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" width="100" alt="success" />
+    <div class="controls-row">
+      <button class="btn" onclick="resetApp()">Book Another</button>
+      <button class="back-btn" onclick="showPage(3)">← Back</button>
+    </div>
+  </section>
+
+  <script src="monojit.js"></script>
+</body>
+</html>
+
